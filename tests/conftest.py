@@ -1,13 +1,14 @@
 import pytest
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+from selene import browser
 
 
-@pytest.fixture
-def driver():
-    options = Options()
-    options.add_argument("--headless=new")  # без открытия окна браузера
-    options.add_argument("--window-size=1280,900")
-    driver = webdriver.Chrome(options=options)
-    yield driver
-    driver.quit()
+@pytest.fixture(scope="function", autouse=True)
+def browser_setup():
+    browser.config.driver_name = "chrome"
+    browser.config.base_url = "https://demoqa.com"
+    browser.config.window_width = "1280"
+    browser.config.window_height = "900"
+    browser.config.timeout = 6
+
+    yield
+    browser.quit()
