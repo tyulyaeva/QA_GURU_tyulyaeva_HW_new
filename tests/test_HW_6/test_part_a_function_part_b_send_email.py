@@ -69,7 +69,7 @@ def get_correct_email(email_list: list[str]) -> list[str]:
         has_valid_domain = bool(email_cleaned.split("@")[1].split(".")[0])
         if not has_valid_domain:
             continue
-        valid_email.append(email)
+        valid_email.append(email_cleaned)
     return valid_email
 
 #8 part_a.
